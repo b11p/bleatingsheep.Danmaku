@@ -13,4 +13,9 @@ public class DanmakuHub : Hub
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, group);
     }
+
+    public Task Connection(string group)
+    {
+        return JoinGroup(group);
+    }
 }

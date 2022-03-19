@@ -1,4 +1,5 @@
 var builder = WebApplication.CreateBuilder(args);
+// builder.Host.UseSystemd();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -10,9 +11,9 @@ builder.Services.AddCors(options =>
         builder =>
         {
             _ = builder
-            .WithOrigins("http://localhost:4000", "https://bleatingsheep.org")
-            .WithHeaders("x-requested-with", "x-signalr-user-agent")
-            .AllowCredentials();
+                .WithOrigins("http://localhost:4000", "https://bleatingsheep.org")
+                .WithHeaders("x-requested-with", "x-signalr-user-agent")
+                .AllowCredentials();
         });
 });
 
