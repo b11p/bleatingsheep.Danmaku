@@ -1,0 +1,36 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build Release
+      run: dotnet build ./bleatingsheep.Danmaku/bleatingsheep.Danmaku.csproj -c Release
+    - name: Publish Release
+      run: dotnet publish ./bleatingsheep.Danmaku/bleatingsheep.Danmaku.csproj -o bin/publish -c Release
+    - name: Push binaries to build branch
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: bin/publish
+        publish_branch: build
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: Binary
+        path: bin/publish
