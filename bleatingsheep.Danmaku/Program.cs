@@ -1,3 +1,5 @@
+using bleatingsheep.Danmaku.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 // builder.Host.UseSystemd();
 
@@ -34,5 +36,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<DanmakuHub>("/danmakuHub");
 
 app.Run();
