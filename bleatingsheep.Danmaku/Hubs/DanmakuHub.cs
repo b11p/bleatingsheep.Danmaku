@@ -14,8 +14,13 @@ public class DanmakuHub : Hub
 
     public async Task SendMessage(string group, string user, string message)
     {
-        await Clients.OthersInGroup(group).SendAsync("ReceiveMessage", user, message);
         _logger.LogInformation("{} ID {} sent: {}", user, Context.ConnectionId, message);
+        if (string.IsNullOrWhiteSpace(user))
+        {
+            var remoteAddress = Context.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress;
+            user = remoteAddress?.ToString() ?? "Anonymous";
+        }
+        await Clients.OthersInGroup(group).SendAsync("ReceiveMessage", user, message);
     }
 
     public async Task JoinGroup(string group)
