@@ -14,7 +14,7 @@ public class DanmakuHub : Hub
 
     public async Task SendMessage(string group, string user, string message)
     {
-        await Clients.OthersInGroup(group).SendAsync("ReceiveMessage", Context.ConnectionId, message);
+        await Clients.OthersInGroup(group).SendAsync("ReceiveMessage", user, message);
         _logger.LogInformation("{} ID {} sent: {}", user, Context.ConnectionId, message);
     }
 
