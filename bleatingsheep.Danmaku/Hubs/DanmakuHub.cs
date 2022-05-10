@@ -17,7 +17,7 @@ public class DanmakuHub : Hub
         _logger.LogInformation("{} ID {} sent: {}", user, Context.ConnectionId, message);
         if (string.IsNullOrWhiteSpace(user))
         {
-            var remoteAddress = Context.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress;
+            var remoteAddress = Context.GetHttpContext()?.Connection.RemoteIpAddress;
             user = remoteAddress?.ToString() ?? "Anonymous";
         }
         await Clients.OthersInGroup(group).SendAsync("ReceiveMessage", user, message);
