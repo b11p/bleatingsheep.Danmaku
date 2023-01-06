@@ -1,4 +1,5 @@
 using bleatingsheep.Danmaku.Hubs;
+using bleatingsheep.Danmaku.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<IDanmakuPersistence, DanmakuPersistence>();
 
 var app = builder.Build();
 
