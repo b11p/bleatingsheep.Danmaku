@@ -52,6 +52,7 @@ public class DanmakuHub : Hub
 
     public async ValueTask<IEnumerable<DanmakuEntry>> GetRecentDanmaku(string group, DateTimeOffset fetchDanmakuSince = default)
     {
+        _logger.LogInformation("{} requested recent danmaku since {}", Context.ConnectionId, fetchDanmakuSince);
         var earliestAllowFetchTime = DateTimeOffset.UtcNow.AddDays(-1);
         if (fetchDanmakuSince < earliestAllowFetchTime)
         {
