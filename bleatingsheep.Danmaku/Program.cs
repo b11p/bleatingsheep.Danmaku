@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
         builder =>
         {
             _ = builder
-                .WithOrigins("http://localhost:4000", "http://localhost:8080", "https://bleatingsheep.org")
+                .WithOrigins("http://localhost:4000", "http://localhost:8080", "https://bleatingsheep.org", "https://live.bleatingsheep.org")
                 .WithHeaders("x-requested-with", "x-signalr-user-agent")
                 .AllowCredentials();
         });
